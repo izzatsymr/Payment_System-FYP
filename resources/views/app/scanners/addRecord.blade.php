@@ -15,21 +15,10 @@
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="form-group">
-                            <label for="scanner_id">Select Scanner</label>
-                            <select name="scanner_id" id="scanner_id" class="form-control">
-                                @foreach ($scanners as $id => $id)
-                                    <option value="{{ $id }}">{{ $id }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="col-sm-12">
-                        <div class="form-group">
                             <label for="card_id">Select Card</label>
                             <select name="card_id" id="card_id" class="form-control">
-                                @foreach ($cards as $id => $id)
-                                    <option value="{{ $id }}">{{ $id }}</option>
+                                @foreach ($cards as $cardId => $cardRfid)
+                                    <option value="{{ $cardId }}">{{ $cardRfid }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -37,10 +26,11 @@
 
                     <div class="col-sm-12">
                         <div class="form-group">
-                            <label for="is_success">Is Success</label>
-                            <select name="is_success" id="is_success" class="form-control">
-                                <option value="yes">Yes</option>
-                                <option value="no">No</option>
+                            <label for="scanner_id">Select Scanner</label>
+                            <select name="scanner_id" id="scanner_id" class="form-control">
+                                @foreach ($scanners as $scannerId => $scannerName)
+                                    <option value="{{ $scannerId }}">{{ $scannerName }}</option>
+                                @endforeach
                             </select>
                         </div>
                     </div>
