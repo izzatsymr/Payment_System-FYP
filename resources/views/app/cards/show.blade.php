@@ -49,4 +49,39 @@
         </div>
     </div>
 </div>
+<div class="container">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">@lang('crud.cards.show_title')</h4>
+            <div class="table-responsive">
+                <table class="table table-borderless">
+                    <thead>
+                        <tr>
+                            <th>RFID</th>
+                            <th>ITEM</th>
+                            <th>SUCCESS</th>
+                            <th>TIME</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @forelse($card->scanners as $transaction)
+                            <tr>
+                                <td>{{ $card->rfid }}</td>
+                                <td>{{ $transaction->name }}</td>
+                                <td>{{ $transaction->pivot->is_success }}</td>
+                                <td>{{ $transaction->pivot->created_at }}</td>
+                            </tr>
+                        @empty
+                            <tr>
+                                <td colspan="4">
+                                    @lang('crud.common.no_items_found')
+                                </td>
+                            </tr>
+                        @endforelse
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
 @endsection

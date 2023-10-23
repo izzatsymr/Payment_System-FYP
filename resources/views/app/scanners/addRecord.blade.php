@@ -6,7 +6,6 @@
         <div class="card-body">
             <h4 class="card-title">
                 <a href="{{ route('scanners.index') }}" class="mr-4"><i class="icon ion-md-arrow-back"></i></a>
-                @lang('crud.scanners.create_title')
             </h4>
 
             <form method="POST" action="{{ route('scanners.storeCardScanner') }}" class="mt-4">
@@ -17,8 +16,8 @@
                         <div class="form-group">
                             <label for="card_id">Select Card</label>
                             <select name="card_id" id="card_id" class="form-control">
-                                @foreach ($cards as $cardId => $cardRfid)
-                                    <option value="{{ $cardId }}">{{ $cardRfid }}</option>
+                                @foreach ($cards as $cardId => $rfid)
+                                    <option value="{{ $cardId }}">{{ $rfid }}</option>
                                 @endforeach
                             </select>
                         </div>

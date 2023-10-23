@@ -126,9 +126,8 @@ class ScannerController extends Controller
      */
     public function addRecord(Request $request)
     {
-        // Fetch the necessary data for the dropdowns
-        $scanners = Scanner::pluck('id');
-        $cards = Card::pluck('id');
+        $scanners = Scanner::pluck('name', 'id');
+        $cards = Card::pluck('rfid', 'id');
 
         return view('app.scanners.addRecord', compact('scanners', 'cards'));
     }
@@ -145,32 +144,32 @@ class ScannerController extends Controller
             'scanner_id' => 'required|exists:scanners,id',
             'card_id' => 'required|exists:cards,id',
         ]);
-    
+
         $scanner = Scanner::find($validated['scanner_id']);
         $card = Card::find($validated['card_id']);
-    
+
         // Check if the card and scanner exist
         if (!$scanner || !$card) {
             return redirect()->route('scanners.index')->withError('Card or scanner not found.');
         }
-    
+
         // Calculate the new balance
         $newBalance = $card->balance - $scanner->amount;
-    
+
         // Determine if the transaction was successful
         $isSuccess = $newBalance >= 0 ? 'yes' : 'no';
-    
+
         // If the transaction was successful, update the card's balance
         if ($isSuccess === 'yes') {
             $card->update(['balance' => $newBalance]);
         }
-    
+
         // Attach the card to the scanner with the result of the transaction
         $scanner->cards()->attach($validated['card_id'], [
             'is_success' => $isSuccess
         ]);
-    
+
         return redirect()->route('scanners.index')->withSuccess(__('crud.common.created'));
     }
-    
+
 }
