@@ -23,8 +23,9 @@ class Scanner extends Model
     public function cards()
     {
         return $this->belongsToMany(Card::class)
-            ->withPivot(['is_success']) // Include the additional attributes
-            ->withTimestamps(); // Include the timestamps
+            ->using(CardScanner::class)
+            ->withPivot(['is_success','created_at']) 
+            ->withTimestamps(); 
     }
 
 }

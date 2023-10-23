@@ -28,6 +28,8 @@ class Card extends Model
 
     public function scanners()
     {
-        return $this->belongsToMany(Scanner::class);
+        return $this->belongsToMany(Scanner::class)
+            ->using(CardScanner::class)
+            ->withPivot(['is_success', 'created_at']);
     }
 }

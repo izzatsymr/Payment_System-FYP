@@ -1,50 +1,43 @@
 @extends('layouts.app')
+<link href="{{ asset('css/digital-card.css') }}" rel="stylesheet">
 
 @section('content')
 <div class="container">
     <div class="card">
         <div class="card-body">
             <h4 class="card-title">
-                <a href="{{ route('cards.index') }}" class="mr-4"
-                    ><i class="icon ion-md-arrow-back"></i
-                ></a>
+                <a href="{{ route('cards.index') }}" class="mr-4">
+                    <i class="icon ion-md-arrow-back"></i>
+                </a>
                 @lang('crud.cards.show_title')
             </h4>
 
-            <div class="mt-4">
-                <div class="mb-4">
-                    <h5>@lang('crud.cards.inputs.rfid')</h5>
-                    <span>{{ $card->rfid ?? '-' }}</span>
+            <div class="mt-4 digital-card">
+                <div class="card-header">
+                    <h3 class="card-title">{{ __('Card Information') }}</h3>
                 </div>
-                <div class="mb-4">
-                    <h5>@lang('crud.cards.inputs.security_key')</h5>
-                    <span>{{ $card->security_key ?? '-' }}</span>
+                <div class="card-content">
+                    <div class="card-field">
+                        <label>RFID:</label>
+                        <span>{{ $card->rfid ?? '-' }}</span>
+                    </div>
+                    <div class="card-field">
+                        <label>{{ __('Security Key') }}:</label>
+                        <span>{{ $card->security_key ?? '-' }}</span>
+                    </div>
+                    <div class="card-field">
+                        <label>{{ __('Balance') }}:</label>
+                        <span>{{ $card->balance ?? '-' }}</span>
+                    </div>
+                    <div class="card-field">
+                        <label>{{ __('Status') }}:</label>
+                        <span>{{ $card->status ?? '-' }}</span>
+                    </div>
+                    <div class="card-field">
+                        <label>{{ __('Student') }}:</label>
+                        <span>{{ optional($card->student)->name ?? '-' }}</span>
+                    </div>
                 </div>
-                <div class="mb-4">
-                    <h5>@lang('crud.cards.inputs.balance')</h5>
-                    <span>{{ $card->balance ?? '-' }}</span>
-                </div>
-                <div class="mb-4">
-                    <h5>@lang('crud.cards.inputs.status')</h5>
-                    <span>{{ $card->status ?? '-' }}</span>
-                </div>
-                <div class="mb-4">
-                    <h5>@lang('crud.cards.inputs.student_id')</h5>
-                    <span>{{ optional($card->student)->name ?? '-' }}</span>
-                </div>
-            </div>
-
-            <div class="mt-4">
-                <a href="{{ route('cards.index') }}" class="btn btn-light">
-                    <i class="icon ion-md-return-left"></i>
-                    @lang('crud.common.back')
-                </a>
-
-                @can('create', App\Models\Card::class)
-                <a href="{{ route('cards.create') }}" class="btn btn-light">
-                    <i class="icon ion-md-add"></i> @lang('crud.common.create')
-                </a>
-                @endcan
             </div>
         </div>
     </div>
@@ -52,13 +45,14 @@
 <div class="container">
     <div class="card">
         <div class="card-body">
-            <h4 class="card-title">@lang('crud.cards.show_title')</h4>
+            <h4 class="card-title">Card Records</h4>
             <div class="table-responsive">
                 <table class="table table-borderless">
                     <thead>
                         <tr>
                             <th>RFID</th>
                             <th>ITEM</th>
+                            <th>AMOUNT</th>
                             <th>SUCCESS</th>
                             <th>TIME</th>
                         </tr>
@@ -68,6 +62,7 @@
                             <tr>
                                 <td>{{ $card->rfid }}</td>
                                 <td>{{ $transaction->name }}</td>
+                                <td>{{ $transaction->amount }}</td>
                                 <td>{{ $transaction->pivot->is_success }}</td>
                                 <td>{{ $transaction->pivot->created_at }}</td>
                             </tr>
