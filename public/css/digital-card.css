@@ -1,70 +1,64 @@
-/* Digital Card Styles */
-.digital-card {
-    background-color: #fff;
-    border: 1px solid #ccc;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    border-radius: 6px;
-    max-width: 400px;
-    margin: 0 auto;
-    padding: 20px;
-}
-
-.digital-card .card-header {
-    background-color: #007BFF;
+.bankcard {
+    width: 500px;
+    height: 300px;
     color: #fff;
-    padding: 10px;
-    border-top-left-radius: 6px;
-    border-top-right-radius: 6px;
-    text-align: center;
+    cursor: pointer;
+    perspective: 1000px;
 }
 
-.digital-card .card-title {
-    margin: 0;
+.bankcard-inner {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transition: transform 1s;
+    transform-style: preserve-3d;
 }
 
-.digital-card .card-content {
-    padding: 20px;
+.front
+ {
+    width: 100%;
+    height: 100%;
+    background-image: linear-gradient(45deg, #0045c7, #ff2c7d);
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 20px 30px;
+    border-radius: 15px;
+    overflow: hidden;
+    z-index: 1;
+    backface-visibility: hidden;
 }
 
-.digital-card .card-field {
-    margin-bottom: 10px;
-}
-
-.digital-card .card-field label {
-    display: block;
-    font-weight: bold;
-    color: #333;
-}
-
-.digital-card .card-field span {
-    color: #666;
-}
-
-.digital-card a.btn {
-    margin-top: 20px;
-}
-
-/* Horizontal Card Container */
-.card-container {
+.row {
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
     align-items: center;
-    background-color: #3490dc;
-    color: #fff;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+    justify-content: space-between;
 }
 
-/* Card Content */
-.card-content {
-    flex: 1;
-    padding: 20px;
+.map-img {
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0.3;
+    z-index: -1;
 }
 
-/* Card Image (if applicable) */
-.card-image {
-    max-width: 150px; /* Adjust the image size as needed */
-    height: auto;
+.card-no {
+    font-size: 35px;
+    margin-top: 35px;
+}
+
+.card-holder {
+    font-size: 12px;
+    margin-top: 40px;
+}
+
+.name {
+    font-size: 22px;
+    margin-top: 5px;
+}
+
+.card:hover .card-inner {
+    transform: rotateY(-180deg);
 }

@@ -1,47 +1,31 @@
 @extends('layouts.app')
-<link href="{{ asset('css/digital-card.css') }}" rel="stylesheet">
+
 
 @section('content')
+<link href="{{ asset('css/digital-card.css') }}" rel="stylesheet">
 <div class="container">
-    <div class="card">
-        <div class="card-body">
-            <h4 class="card-title">
-                <a href="{{ route('cards.index') }}" class="mr-4">
-                    <i class="icon ion-md-arrow-back"></i>
-                </a>
-                @lang('crud.cards.show_title')
-            </h4>
-
-            <div class="mt-4 digital-card">
-                <div class="card-header">
-                    <h3 class="card-title">{{ __('Card Information') }}</h3>
+    <div class="bankcard">
+        <div class="bankcard-inner">
+            <div class="front">
+                <div class="row">
+                    <img src="https://i.ibb.co/WHZ3nRJ/visa.png" width="60px">
                 </div>
-                <div class="card-content">
-                    <div class="card-field">
-                        <label>RFID:</label>
-                        <span>{{ $card->rfid ?? '-' }}</span>
-                    </div>
-                    <div class="card-field">
-                        <label>{{ __('Security Key') }}:</label>
-                        <span>{{ $card->security_key ?? '-' }}</span>
-                    </div>
-                    <div class="card-field">
-                        <label>{{ __('Balance') }}:</label>
-                        <span>{{ $card->balance ?? '-' }}</span>
-                    </div>
-                    <div class="card-field">
-                        <label>{{ __('Status') }}:</label>
-                        <span>{{ $card->status ?? '-' }}</span>
-                    </div>
-                    <div class="card-field">
-                        <label>{{ __('Student') }}:</label>
-                        <span>{{ optional($card->student)->name ?? '-' }}</span>
-                    </div>
+                <div class="row card-no">
+                    <p>RFID {{ $card->rfid ?? '-' }}</p>
+                </div>
+                <div class="row card-holder">
+                    <p>STUDENT NAME</p>
+                    <p>BALANCE</p>
+                </div>
+                <div class="row name">
+                    <p>{{ optional($card->student)->name ?? '-' }}</p>
+                    <p>{{ $card->balance ?? '-' }}</p>
                 </div>
             </div>
         </div>
     </div>
 </div>
+<p></p>
 <div class="container">
     <div class="card">
         <div class="card-body">
