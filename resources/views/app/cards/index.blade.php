@@ -50,14 +50,14 @@
                             <th class="text-left">
                                 @lang('crud.cards.inputs.security_key')
                             </th>
-                            <th class="text-right">
+                            <th class="text-left">
                                 @lang('crud.cards.inputs.balance')
                             </th>
                             <th class="text-left">
-                                @lang('crud.cards.inputs.status')
+                                @lang('crud.cards.inputs.student_id')
                             </th>
                             <th class="text-left">
-                                @lang('crud.cards.inputs.student_id')
+                                @lang('crud.cards.inputs.status')
                             </th>
                             <th class="text-center">
                                 @lang('crud.common.actions')
@@ -66,12 +66,13 @@
                     </thead>
                     <tbody>
                         @forelse($cards as $card)
+                        @if(auth()->user()->hasRole('super-admin') || auth()->user()->id == $card->student->user_id)
                         <tr>
                             <td>{{ $card->rfid ?? '-' }}</td>
                             <td>{{ $card->security_key ?? '-' }}</td>
                             <td>{{ $card->balance ?? '-' }}</td>
-                            <td>{{ $card->status ?? '-' }}</td>
                             <td>{{ optional($card->student)->name ?? '-' }}</td>
+                            <td>{{ $card->status ?? '-' }}</td>
                             <td class="text-center" style="width: 134px;">
                                 <div
                                     role="group"
@@ -87,7 +88,8 @@
                                             <i class="icon ion-md-create"></i>
                                         </button>
                                     </a>
-                                    @endcan @can('view', $card)
+                                    @endcan
+                                    @can('view', $card)
                                     <a href="{{ route('cards.show', $card) }}">
                                         <button
                                             type="button"
@@ -96,7 +98,8 @@
                                             <i class="icon ion-md-eye"></i>
                                         </button>
                                     </a>
-                                    @endcan @can('delete', $card)
+                                    @endcan
+                                    @can('delete', $card)
                                     <form
                                         action="{{ route('cards.destroy', $card) }}"
                                         method="POST"
@@ -114,6 +117,7 @@
                                 </div>
                             </td>
                         </tr>
+                        @endif
                         @empty
                         <tr>
                             <td colspan="6">
@@ -124,7 +128,7 @@
                     </tbody>
                     <tfoot>
                         <tr>
-                            <td colspan="6">{!! $cards->render() !!}</td>
+                            <td colspan="6">{{ $cards->links() }}</td>
                         </tr>
                     </tfoot>
                 </table>

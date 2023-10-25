@@ -39,7 +39,7 @@
 
     <div class="card">
         <div class="card-body">
-            <div style="display: flex; justify-content: space-between;">
+            <div style="display: flex; justify-content: space between;">
                 <h4 class="card-title">@lang('crud.scanners.index_title')</h4>
             </div>
 
@@ -50,7 +50,7 @@
                             <th class="text-left">
                                 @lang('crud.scanners.inputs.name')
                             </th>
-                            <th class="text-right">
+                            <th class="text-left">
                                 @lang('crud.scanners.inputs.amount')
                             </th>
                             <th class="text-left">
@@ -66,6 +66,7 @@
                     </thead>
                     <tbody>
                         @forelse($scanners as $scanner)
+                        @if(auth()->user()->hasRole('super-admin') || auth()->user()->id == $scanner->user_id)
                         <tr>
                             <td>{{ $scanner->name ?? '-' }}</td>
                             <td>{{ $scanner->amount ?? '-' }}</td>
@@ -88,7 +89,8 @@
                                             <i class="icon ion-md-create"></i>
                                         </button>
                                     </a>
-                                    @endcan @can('view', $scanner)
+                                    @endcan
+                                    @can('view', $scanner)
                                     <a
                                         href="{{ route('scanners.show', $scanner) }}"
                                     >
@@ -99,7 +101,8 @@
                                             <i class="icon ion-md-eye"></i>
                                         </button>
                                     </a>
-                                    @endcan @can('delete', $scanner)
+                                    @endcan
+                                    @can('delete', $scanner)
                                     <form
                                         action="{{ route('scanners.destroy', $scanner) }}"
                                         method="POST"
@@ -117,6 +120,7 @@
                                 </div>
                             </td>
                         </tr>
+                        @endif
                         @empty
                         <tr>
                             <td colspan="5">

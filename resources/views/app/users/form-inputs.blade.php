@@ -57,7 +57,6 @@
             name="phone_no"
             label="Phone No"
             :value="old('phone_no', ($editing ? $user->phone_no : ''))"
-            max="255"
             placeholder="Phone No"
             required
         ></x-inputs.number>
@@ -68,7 +67,6 @@
             name="address"
             label="Address"
             :value="old('address', ($editing ? $user->address : ''))"
-            maxlength="255"
             placeholder="Address"
             required
         ></x-inputs.text>

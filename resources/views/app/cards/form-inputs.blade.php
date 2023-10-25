@@ -28,7 +28,6 @@
             name="balance"
             label="Balance"
             :value="old('balance', ($editing ? $card->balance : ''))"
-            max="255"
             step="0.01"
             placeholder="Balance"
             required
