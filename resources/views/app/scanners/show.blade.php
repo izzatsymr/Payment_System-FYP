@@ -50,13 +50,21 @@
         <div class="card-body">
             <h4 class="card-title">Scanner Records</h4>
             <div class="table-responsive">
-                <table class="table table-borderless">
+                <table class="table table-borderless" id="sortable-table">
                     <thead>
                         <tr>
-                            <th>Student ID</th>
-                            <th>Card RFID</th>
-                            <th>Success</th>
-                            <th>Time</th>
+                            <th id="col-studentID">
+                                Student ID
+                            </th>
+                            <th id="col-cardRFID">
+                                Card RFID <i class="fas fa-sort">
+                            </th>
+                            <th id="col-success">
+                                Success <i class="fas fa-sort"></i>
+                            </th>
+                            <th id="col-time">
+                                Time <i class="fas fa-sort"></i>
+                            </th>
                         </tr>
                     </thead>
                     <tbody>

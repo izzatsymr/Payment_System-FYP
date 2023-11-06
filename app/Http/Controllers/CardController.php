@@ -117,4 +117,22 @@ class CardController extends Controller
             ->route('cards.index')
             ->withSuccess(__('crud.common.removed'));
     }
+
+    /**
+     * @param \App\Http\Requests\CardUpdateRequest $request
+     * @param \App\Models\Card $card
+     * @return \Illuminate\Http\Response
+     */
+    public function toggleStatus(Card $card)
+    {
+        $this->authorize('update', $card);
+
+        $newStatus = $card->status === 'active' ? 'inactive' : 'active';
+        $card->status = $newStatus;
+        $card->save();
+
+        return redirect()
+            ->route('cards.index', $card)
+            ->withSuccess(__('crud.common.saved'));
+    }
 }

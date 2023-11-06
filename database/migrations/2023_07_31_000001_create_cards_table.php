@@ -17,7 +17,7 @@ return new class extends Migration {
             $table->string('rfid');
             $table->string('security_key');
             $table->decimal('balance');
-            $table->enum('status', ['active', 'deactive']);
+            $table->enum('status', ['active', 'inactive']);
             $table->unsignedBigInteger('student_id');
 
             $table->timestamps();

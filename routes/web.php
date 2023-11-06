@@ -31,6 +31,8 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::get('scanners/new', [ScannerController::class, 'addRecord'])->name('scanners.addRecord');
 Route::post('scanners/storeCardScanner', [ScannerController::class, 'storeCardScanner'])->name('scanners.storeCardScanner');
 
+Route::put('/cards/{card}/toggle-status', 'App\Http\Controllers\CardController@toggleStatus')->name('cards.toggle-status');
+
 
 Route::prefix('/')
     ->middleware('auth')

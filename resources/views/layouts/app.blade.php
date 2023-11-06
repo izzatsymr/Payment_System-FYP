@@ -29,9 +29,12 @@ href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&a
 <link href="{{ asset('css/app.css') }}" rel="stylesheet"> --}}
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/admin-lte@3.1/dist/css/adminlte.min.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.css">
+<link rel="stylesheet" href="https://unpkg.com/ionicons@4.5.10/css/ionicons.min.css">
+
 
 <!-- Icons -->
 <link href="https://unpkg.com/ionicons@4.5.10-0/dist/css/ionicons.min.css" rel="stylesheet">
+
 
 <!-- Small Ionicons Fixes for AdminLTE -->
 <style>
@@ -109,46 +112,29 @@ href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&a
     <script>
         $(document).ready(function() {
             // Initialize the sorting direction for each column
-            let sortingDirections = Array(5).fill(0);
+            let sortingDirections = {};
 
             // Add click event listener to each column header
             $('#sortable-table th').click(function() {
-                const column = $(this).index();
+                const columnId = $(this).attr('id');
 
-                // Reset sorting direction for other columns
-                for (let i = 0; i < 5; i++) {
-                    if (i !== column) {
-                        sortingDirections[i] = 0;
-                    }
-                }
+                // Determine the sorting direction
+                const currentDirection = sortingDirections[columnId] || 'asc';
+                sortingDirections[columnId] = currentDirection === 'asc' ? 'desc' : 'asc';
 
-                // Toggle the sorting direction
-                sortingDirections[column] = (sortingDirections[column] === 0) ? 1 : -sortingDirections[column];
-
-                // Remove sorting classes from all columns
-                $('#sortable-table th i').removeClass('fa-sort-up fa-sort-down');
-
-                // Set the appropriate sorting class
-                if (sortingDirections[column] === 1) {
-                    $(this).find('i').addClass('fa-sort-up');
-                    // Perform ascending sorting logic here
-                    if (column === 2) { // AMOUNT column
-                        sortTableByAmount(true);
-                    } else if (column === 4) { // TIME column
-                        sortTableByTime(true);
-                    } else if (column === 1 || column === 3) { // ITEM and SUCCESS columns
-                        sortTableByAlphabetical(true, column);
-                    }
-                } else {
-                    $(this).find('i').addClass('fa-sort-down');
-                    // Perform descending sorting logic here
-                    if (column === 2) { // AMOUNT column
-                        sortTableByAmount(false);
-                    } else if (column === 4) { // TIME column
-                        sortTableByTime(false);
-                    } else if (column === 1 || column === 3) { // ITEM and SUCCESS columns
-                        sortTableByAlphabetical(false, column);
-                    }
+                // Sort the table
+                switch (columnId) {
+                    case 'col-amount':
+                        sortTableByAmount(sortingDirections[columnId] === 'asc');
+                        break;
+                    case 'col-time':
+                        sortTableByTime(sortingDirections[columnId] === 'asc');
+                        break;
+                    case 'col-item':
+                    case 'col-success':
+                    case 'col-cardRFID':
+                        sortTableByAlphabetical(sortingDirections[columnId] === 'asc', $(this).index());
+                        break;
                 }
             });
 
@@ -178,7 +164,7 @@ href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&a
                 rows.sort(function(a, b) {
                     const aValue = $(a).find('td').eq(column).text().toLowerCase();
                     const bValue = $(b).find('td').eq(column).text().toLowerCase();
-                    return ascending ? aValue.localeCompare(bValue) : bValue.localeCompare(aValue);
+                    return ascending ? (aValue > bValue ? 1 : -1) : (aValue < bValue ? 1 : -1);
                 });
                 $('#sortable-table tbody').empty().append(rows);
             }
