@@ -1,9 +1,9 @@
 <!-- Main Sidebar Container -->
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
-    <!-- Brand Logo -->
+    <!-- Logo -->
     <a href="{{ url('/') }}" class="brand-link">
-        <img src="https://vemto.app/favicon.png" alt="Vemto Logo" class="brand-image bg-white img-circle">
-        <span class="brand-text font-weight-light">CashlessPaymentSystemm</span>
+        <img src="{{ asset('/images/logo.png') }}" alt="Logo" class="brand-image">
+        <span class="brand-text font-weight-bold">Payment System</span>
     </a>
 
     <!-- Sidebar -->

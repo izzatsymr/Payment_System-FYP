@@ -4,7 +4,7 @@
 <!-- CSRF Token -->
 <meta name="csrf-token" content="{{ csrf_token() }}">
 
-<title>CashlessPaymentSystemm</title>
+<title>Cashless Payment System</title>
 
 <!-- Scripts -->
 <script src="https://kit.fontawesome.com/e0beef6f9b.js" crossorigin="anonymous"></script>
